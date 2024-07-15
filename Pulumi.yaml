@@ -1,0 +1,4 @@
+
+name: pulumi-database-demo
+description: Deploys RDS for demo.
+runtime: nodejs

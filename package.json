@@ -1,0 +1,22 @@
+{
+	"name": "pulumi-database-demo",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"config:set:region": "pulumi config set aws:region ap-northeast-1",
+		"deploy": "pulumi up",
+		"destroy": "pulumi destroy"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/node": "^20"
+	},
+	"dependencies": {
+		"@pulumi/aws": "^6.44.0",
+		"@pulumi/pulumi": "^3.124.0",
+		"@pulumi/random": "^4.16.3"
+	}
+}
