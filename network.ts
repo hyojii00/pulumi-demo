@@ -45,27 +45,6 @@ export class Vpc extends pulumi.ComponentResource {
 			{ parent: this },
 		);
 
-		const igwName = `${name}-igw`;
-		const igw = new ec2.InternetGateway(
-			igwName,
-			{
-				vpcId: vpc.id,
-				tags: { Name: igwName },
-			},
-			{ parent: this },
-		);
-
-		const rtName = `${name}-rt`;
-		const routeTable = new ec2.RouteTable(
-			rtName,
-			{
-				vpcId: vpc.id,
-				routes: [{ cidrBlock: "0.0.0.0/0", gatewayId: igw.id }],
-				tags: { Name: rtName },
-			},
-			{ parent: this },
-		);
-
 		// Subnets, at least across two zones
 		const allZones = aws.getAvailabilityZones({ state: "available" });
 		// Limiting to 2 zones for speed and to meet minimal requirements.
@@ -83,15 +62,6 @@ export class Vpc extends pulumi.ComponentResource {
 					cidrBlock: `10.100.${subnets.length}.0/24`,
 					availabilityZoneId: az,
 					tags: { Name: subnetName },
-				},
-				{ parent: this },
-			);
-
-			const _ = new ec2.RouteTableAssociation(
-				`vpc-route-table-assoc-${i}`,
-				{
-					routeTableId: routeTable.id,
-					subnetId: vpcSubnet.id,
 				},
 				{ parent: this },
 			);
